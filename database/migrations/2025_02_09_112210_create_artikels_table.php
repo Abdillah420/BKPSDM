@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer("view");
             $table->string("title");
-            $table->string("isi");
-            $table->string("slug");
+            $table->text("isi");
+            $table->string("slug")->unique();
             $table->timestamps();
         });
     }

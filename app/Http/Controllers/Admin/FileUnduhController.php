@@ -14,7 +14,8 @@ class FileUnduhController extends Controller
      */
     public function index()
     {
-        //
+        $fileUnduhs = FileUnduh::all();
+        return view('admin.index', compact('fileUnduhs'));
     }
 
     /**
@@ -33,27 +34,25 @@ class FileUnduhController extends Controller
         $validation = $request->validate([
             "nama" => "required|string",
             "deskripsi" => "required|string",
-            "path" => "required|string"
+            "path" => "required|file"
         ],[
-            "nama.required" => "nama harus diisi !" ,
-            "deskripsi.required" => "deskripsi harus di isi !" ,
-            "path.image" => "Ekstension gambar tidak valid !" ,
-            "path.required" => " harus diisi! !" ,
+            "nama.required" => "Nama harus diisi !" ,
+            "deskripsi.required" => "Deskripsi harus diisi !" ,
+            "path.required" => "File harus diisi !" ,
         ]);
 
         if ($request->hasFile("path")) { 
             $file = $request->file("path");
-            $foto = $file->hashName();
-
-            $foto_path = $file->storeAs("path", $foto);
-            $foto_path = Storage::disk("public")->put("file_unduhs", $file);
-            $validation["path"] = $foto_path;
+            $fileName = $file->hashName();
+            $file_path = $file->storeAs("file_unduhs", $fileName, 'public');
+            $validation["path"] = $file_path;
         }
 
-
+        // Debugging
+     
         FileUnduh::create($validation);
 
-        return back()->with("success"," file Berhasil Menambahkan");
+        return back()->with("success","File Berhasil Menambahkan");
     }
 
     /**
@@ -85,11 +84,10 @@ class FileUnduhController extends Controller
 
         if ($request->hasFile("path")) { 
             $file = $request->file("path");
-            $foto = $file->hashName();
+            $fileName = $file->hashName();
             
-            $foto_path = $file->storeAs("file_unduhs", $foto);
-            $foto_path = Storage::disk("public")->put("file_unduhs", $file);
-            $validation["path"] = $foto_path;
+            $file_path = $file->storeAs("file_unduhs", $fileName, 'public');
+            $validation["path"] = $file_path;
 
             if (Storage::exists($fileUnduh->path)) {
                 Storage::delete($fileUnduh->path);

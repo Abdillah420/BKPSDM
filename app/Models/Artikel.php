@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Artikel extends Model
 {
     protected $fillable = [
-        "nama",
-        "deksripsi",
-        "path",
+        "view",
+        "title",
+        "isi",
+        "slug"
     ];
 }
 

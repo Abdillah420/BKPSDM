@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FileUnduhController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\FotoController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Foto;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +40,7 @@ Route::group(['as' => 'user.'], function() {
     Route::resource('file_unduh', FileUnduhController::class);
     Route::resource('berita', BeritaController::class);
     Route::resource('agenda',AgendaController::class);
+    Route::resource('foto',FotoController::class);
 });
 
 

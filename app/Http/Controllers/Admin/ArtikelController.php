@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\artikel;
+use App\Models\Artikel;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,8 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        //
+        $artikels = Artikel::all(); // Ambil semua data artikel
+        return view('admin.index', compact('artikels')); // Kirim data ke view
     }
 
     /**
@@ -30,39 +31,31 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-                // Validasi input dari form
-                $validation = $request->validate([
-                    "view" => "required|integer",  // Jumlah tampilan harus integer
-                    "title" => "required|string",  // Judul harus berupa string
-                    "isi" => "required|string",    // Isi artikel harus berupa string
-                ],[
-                    "view.required" => "Jumlah tampilan harus diisi !",
-                    "view.integer" => "Jumlah tampilan harus berupa angka !",
-                    "title.required" => "Judul harus diisi !",
-                    "isi.required" => "Isi artikel harus diisi !",
-                ]);
-        
-                if ($request->hasFile("path")) { 
-                    $file = $request->file("path");
-                    $foto = $file->hashName();
-        
+        // Validasi input dari form
+        $validation = $request->validate([
+            "view" => "required|integer",
+            "title" => "required|string",
+            "isi" => "required|string",
+        ], [
+            "view.required" => "Jumlah tampilan harus diisi !",
+            "view.integer" => "Jumlah tampilan harus berupa angka !",
+            "title.required" => "Judul harus diisi !",
+            "isi.required" => "Isi artikel harus diisi !",
+        ]);
 
-                    $foto_path = $file->storeAs("artikels", $foto, 'public');  
-        
-                    $validation["path"] = $foto_path;
-                }
+        // Menambahkan slug berdasarkan judul
+        $validation['slug'] = Str::slug($request->title);
 
-                $validation["slug"] = Str::slug($request->title);
+        // Menyimpan data artikel
+        Artikel::create($validation);
 
-                Artikel::create($validation);
-
-                return back()->with("success", "Berhasil Menambahkan Artikel");
+        return back()->with("success", "Berhasil Menambahkan Artikel");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(artikel $artikel)
+    public function show(Artikel $artikel)
     {
         //
     }
@@ -70,7 +63,7 @@ class ArtikelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(artikel $artikel)
+    public function edit(Artikel $artikel)
     {
         //
     }
@@ -87,7 +80,10 @@ class ArtikelController extends Controller
             "isi" => "required|string",
         ]);
 
+        // Menambahkan slug berdasarkan judul
         $validation['slug'] = Str::slug($request->title);
+
+        // Memperbarui data artikel
         $artikel->update($validation);
 
         return back()->with("success", "Artikel berhasil diperbarui");
@@ -99,8 +95,6 @@ class ArtikelController extends Controller
     public function destroy(Artikel $artikel)
     {
         $artikel->delete();
-
-
         return back()->with("success", "Artikel berhasil dihapus");
     }
 }
