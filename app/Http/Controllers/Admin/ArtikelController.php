@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Artikel;
+use App\Models\Slide;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class ArtikelController extends Controller
     public function index()
     {
         $artikels = Artikel::all(); // Ambil semua data artikel
-        return view('admin.index', compact('artikels')); // Kirim data ke view
+        return view('admin.index', compact('artikels',)); // Kirim data ke view
     }
 
     /**

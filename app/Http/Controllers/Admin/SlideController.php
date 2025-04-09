@@ -14,7 +14,14 @@ class SlideController extends Controller
      */
     public function index()
     {
-        //
+        $slides = Slide::all(); // Ambil semua data dari tabel slides
+        return view('admin.index', compact('slides')); // Kirim data ke tampilan index
+    }
+
+    public function welcome()
+    {
+        $slides = Slide::all(); // Ambil semua data dari tabel slides
+        return view('welcome', compact('slides')); // Kirim data ke tampilan welcome
     }
 
     /**
@@ -67,7 +74,7 @@ class SlideController extends Controller
      */
     public function edit(Slide $slide)
     {
-        //
+        return view('admin.slides.edit', compact('slide'));
     }
 
     /**
@@ -76,8 +83,9 @@ class SlideController extends Controller
     public function update(Request $request, Slide $slide)
     {
         $validation = $request->validate([
-            "path" => "required|image",
-            "title" => "required|string"
+            "path" => "nullable|image",
+            "title" => "required|string",
+            "link" => "required|string"
         ]);
 
         if ($request->hasFile("path")) { 
@@ -85,19 +93,19 @@ class SlideController extends Controller
             $foto = $file->hashName();
             
             $foto_path = $file->storeAs("slides", $foto);
-            $foto_path = Storage::disk("public")->put("slides", $file);
             $validation["path"] = $foto_path;
 
             if (Storage::exists($slide->path)) {
                 Storage::delete($slide->path);
+                
             }
+        } else {
+            $validation["path"] = $slide->path;
         }
-
-
 
         $slide->update($validation);
 
-        return back()->with("success","Berhasil Menhapus");
+        return redirect()->route('admin.slides.index')->with("success", "Berhasil Mengupdate");
     }
 
     /**

@@ -31,6 +31,23 @@
             <main>
                 {{ $slot }}
             </main>
+
+            @include('components.popup')
+
+            {{-- <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    fetch('{{ route('popup.latest') }}')
+                        .then(response => response.json())
+                        .then(data => {
+                            const content = `
+                                <h3>${data.title}</h3>
+                                <p>${data.isi}</p>
+                                <img src="{{ asset('storage/' . data.image) }}" alt="${data.title}" class="w-full h-auto">
+                            `;
+                            openPopup(content);
+                        });
+                });
+            </script> --}}
         </div>
     </body>
 </html>

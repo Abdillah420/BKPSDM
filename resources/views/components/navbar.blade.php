@@ -1,32 +1,31 @@
-<header class="shadow-md px-64" style="background-color: #1A1A1A; height: 60px; display: flex; align-items: center;">
-    <div class="flex justify-between items-center w-full">
-        <div style="text-align: left">
-            <p class="text-white text-sm" style="font-family: 'Roboto', sans-serif; font-weight: 500;">
-                <a href="mailto:bkpsdm@mojokertokab.go.id" style="text-decoration: none; color: #fff; font-family: 'Roboto', sans-serif; font-weight: 400;">
-                    <i class="fas fa-envelope"></i> bkpsdm@mojokertokab.go.id
+<div class="w-full bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 md:px-4">
+        <div class="h-16 flex justify-between items-center">
+            <!-- Bagian kiri: Email dan Telepon -->
+            <div class="text-white flex flex-col md:flex-col md:items-start">
+                <a href="mailto:bkpsdm@mojokertokab.go.id" class="flex items-center gap-2 hover:text-gray-300 transition-colors mb-1">
+                    <span class="text-sm">bkpsdm@mojokertokab.go.id</span>
                 </a>
-                <br>
-                <a href="tel:+14854560102" style="text-decoration: none; color: #fff; font-family: 'Roboto', sans-serif; font-weight: 400;">
-                    <i class="fas fa-phone"></i> (0321) 322817
+                <a href="tel:+0321322817" class="flex items-center gap-2 hover:text-gray-300 transition-colors">
+                    <span class="text-sm">(0321) 322817</span>
                 </a>
-            </p>                
-        </div>
-        <div class="flex space-x-4 text-white">
-            <a href="https://www.facebook.com/" class="hover:text-gray-900">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://x.com/?mx=2" class="hover:text-gray-900">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://www.google.com/" class="hover:text-gray-900">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://www.youtube.com/" class="hover:text-gray-900">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.instagram.com/bkpsdm.mojokertokab?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="hover:text-gray-900">
-                <i class="fab fa-instagram"></i>
-            </a>
+            </div>
+
+            <!-- Bagian kanan: Social Media -->
+            <div class="flex items-center space-x-3 md:space-x-6">
+                <a href="https://www.facebook.com/" class="text-white hover:text-gray-300">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://twitter.com/" class="text-white hover:text-gray-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://youtube.com/" class="text-white hover:text-gray-300">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com" class="text-white hover:text-gray-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </div>
-</header>
+</div>

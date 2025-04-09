@@ -120,12 +120,20 @@ class BeritaController extends Controller
      */
     public function destroy(Berita $berita)
     {
-        if (Storage::exists($berita->path)) {
-            Storage::delete($berita->path);
+        // Hapus gambar dari storage jika ada
+        if ($berita->image && Storage::exists($berita->image)) {
+            Storage::delete($berita->image);
         }
 
+        // Hapus berita dari database
         $berita->delete();
 
         return back()->with("success", "Berhasil Menghapus Berita");
+    }
+
+    public function latest()
+    {
+        $beritas = Berita::orderBy('created_at', 'desc')->take(3)->get();
+        return view('welcome', compact('beritas'));
     }
 }
